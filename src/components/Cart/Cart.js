@@ -1,51 +1,106 @@
-import React from "react";
+import React, { useContext } from "react";
 import CartHeading from "./CartHeading";
 import { Button, Container, Modal, Table } from "react-bootstrap";
 import ModalUI from "../../UI/ModalUI";
+import CartContext from "../../store/cart-context";
 
 const Cart = (props) => {
-  const cartElements = [
-    {
-      title: "Colors",
+  const cartCtx = useContext(CartContext);
 
-      price: 100,
+  const totalAmount = `$${cartCtx.totalAmount.toFixed(2)}`;
+  const hasItems = cartCtx.items.length > 0;
 
-      imageUrl:
-        "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
+  const cartItemRemoveHandler = (id) => {
+    cartCtx.removeItem(id);
+  };
 
-      quantity: 2,
-    },
+  const cartItemAddHandler = (item) => {
+    cartCtx.addItem({ ...item, amount: 1 });
+  };
 
-    {
-      title: "Black and white Colors",
+  // const cartElements = [
+  //   {
+  //     title: "Colors",
 
-      price: 50,
+  //     price: 100,
 
-      imageUrl:
-        "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
+  //     imageUrl:
+  //       "https://prasadyash2411.github.io/ecom-website/img/Album%201.png",
 
-      quantity: 3,
-    },
+  //     quantity: 2,
+  //   },
 
-    {
-      title: "Yellow and Black Colors",
+  //   {
+  //     title: "Black and white Colors",
 
-      price: 70,
+  //     price: 50,
 
-      imageUrl:
-        "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
+  //     imageUrl:
+  //       "https://prasadyash2411.github.io/ecom-website/img/Album%202.png",
 
-      quantity: 1,
-    },
-  ];
+  //     quantity: 3,
+  //   },
+
+  //   {
+  //     title: "Yellow and Black Colors",
+
+  //     price: 70,
+
+  //     imageUrl:
+  //       "https://prasadyash2411.github.io/ecom-website/img/Album%203.png",
+
+  //     quantity: 1,
+  //   },
+  // ];
+
+  const cartElements = (
+    <ul>
+      {cartCtx.items.map((item) => (
+        <div>
+          key={item.id}
+          title={item.title}
+          amount={item.amount}
+          price={item.price}
+          imageUrl={item.imageUrl}
+          // onRemove={cartItemRemoveHandler.bind(null, item.id)}
+          onRemove=
+          {() => {
+            cartItemRemoveHandler(item.id);
+          }}{" "}
+          //I added // onAdd={cartItemAddHandler.bind(null, item)}
+          onAdd=
+          {() => {
+            cartItemAddHandler(item);
+          }}
+        </div>
+      ))}
+    </ul>
+  );
 
   let totalPrice = 0;
-  cartElements.forEach((item) => {
-    totalPrice += +item.price;
-  });
+  // cartElements.forEach((item) => {
+  //   totalPrice += +item.price;
+  // });
 
   return (
     <ModalUI onClose={props.onClose}>
+      <div style={{ position: "relative" }}>
+        <Button
+          style={{
+            position: "absolute",
+            top: "10px",
+            right: "10px",
+            backgroundColor: "yellow",
+            color: "red",
+            border: "red",
+            fontSize: "1.5rem",
+            outline: "1px red",
+          }}
+          onClick={props.onClose}
+        >
+          X
+        </Button>
+      </div>
       <CartHeading></CartHeading>
       <Table hover>
         <thead>
@@ -76,7 +131,6 @@ const Cart = (props) => {
         <strong>Price :$</strong>
         {totalPrice}
       </div>
-
       <div className=" d-flex justify-content-center align-items-center">
         <Button variant="primary" size="lg">
           PURCHASE
