@@ -2,6 +2,8 @@ import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import Figure from "react-bootstrap/Figure";
 
+import classes from "./Music.module.css";
+
 const Music = (props) => {
   const productsArr = [
     {
@@ -44,6 +46,7 @@ const Music = (props) => {
               <h4>{item.album}</h4>
               <Figure>
                 <Figure.Image
+                  className={classes["zoom-image"]}
                   width={250}
                   height={300}
                   alt={item.title}

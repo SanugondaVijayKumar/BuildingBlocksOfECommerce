@@ -27,7 +27,11 @@ const Footer = (props) => {
         >
           <Row>
             <Col>
-              <Navbar.Brand href="#home" className="ml-auto flex-grow-1">
+              <Navbar.Brand
+                href="#home"
+                className="ml-auto flex-grow-1"
+                style={{ fontSize: "50px" }}
+              >
                 The Generics
               </Navbar.Brand>
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -35,7 +39,7 @@ const Footer = (props) => {
 
             <Col xs="auto">
               <Navbar.Collapse id="basic-navbar-nav" className="ml-auto">
-                <Nav className="ml-auto">
+                <Nav className="ml-auto mx-auto mt-2">
                   {YouTube}
                   {Spotify}
                   {Facebook}

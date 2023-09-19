@@ -5,6 +5,8 @@ import Figure from "react-bootstrap/Figure";
 import TshirtUrl from "../../assets/t shirt.png";
 import CoffeeCupUrl from "../../assets/coffee cup.png";
 
+import classes from "./Music.module.css";
+
 const Merch = (props) => {
   const productsArr = [
     {
@@ -31,6 +33,7 @@ const Merch = (props) => {
               <h4>{item.title}</h4>
               <Figure>
                 <Figure.Image
+                  className={classes["zoom-image"]}
                   width={250}
                   height={300}
                   alt={item.title}
